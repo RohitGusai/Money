@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+/* Page background */
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main box */
+#box {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    padding: 30px 20px 50px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+/* Text */
+#box p {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+#box button {
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* YES button */
+#box button:first-of-type {
+    background: linear-gradient(135deg, #38ef7d, #11998e);
+    color: white;
+    box-shadow: 0 8px 18px rgba(56, 239, 125, 0.4);
+}
+
+#box button:first-of-type:hover {
+    transform: scale(1.08);
+}
+
+/* NO button */
+#no {
+    position: absolute;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    box-shadow: 0 8px 18px rgba(255, 65, 108, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fun hover effect */
+#no:hover {
+    transform: rotate(-3deg) scale(1.05);
+}
+
+#result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* horizontal center */
+    justify-content: center; /* vertical center (if container has height) */
+    text-align: center;
+}
+
+
+
+</style>
+<body>
+
+    <div id="result" style="display: none;">
+    <h2 >🥳 De de bhai !</h2>
+    <p>Ye QR code hai Scan karke bej de 😄</p>
+    <img 
+        src="https://i.pinimg.com/736x/12/4d/53/124d53f392df0177c2122a563c4d458c.jpg" 
+        alt="celebration"
+        width="250"
+    />
+    <img 
+        src="C:\Users\hp\Downloads\scanner.jpeg" 
+        alt="celebration"
+        width="250"
+    />
+    
+</div>
+
+
+    <div id="box">
+    <p id="text">Bhai mera paisa dega ya nahi?</p>
+    <button id="yes" >Yes</button>
+    <button id="no">No</button>
+</div>
+        
+        <!-- <input type="text" placeholder="Enter note here..." />
+        <button onclick="addNote()" style="cursor: pointer;">Add Note</button> -->
+        
+ 
+    <!-- <ul id="notesList"></ul> -->
+    
+    <script>
+        const result = document.getElementById("result");
+        const yesButton = document.getElementById("yes");
+         const noButton = document.getElementById("no");
+         const text = document.getElementById("text");
+        const box = document.getElementById("box")
+
+        noButton.addEventListener("mouseenter", moveNoButton); // desktop
+noButton.addEventListener("touchstart", moveNoButton); // mobile
+
+        yesButton.addEventListener("click",()=>
+    {
+        box.style.display = "none";
+        noButton.style.display = "none";
+text.style.display = "none";    
+        result.style.display = "block";
+    })
+        
+
+       
+
+        noButton.style.width = "50px"
+        noButton.style.height = "50px"
+
+        function moveNoButton() {
+    const rectButton = noButton.getBoundingClientRect();
+    const rectBox = box.getBoundingClientRect();
+
+    const padding = 20; // safety gap
+
+    const maxLeft = rectBox.width - rectButton.width - padding;
+    const maxTop = rectBox.height - rectButton.height - padding;
+
+    let newLeft;
+    let newTop;
+
+    do {
+        newLeft = Math.random() * maxLeft;
+        newTop = Math.random() * maxTop;
+    } while (
+        Math.abs(newLeft - rectButton.left) < 120 &&
+        Math.abs(newTop - rectButton.top) < 120
+    );
+
+    noButton.style.left = newLeft + "px";
+    noButton.style.top = newTop + "px";
+}
+
+
+
+        
+        // function addNote(){
+        //     const noteText = document.querySelector('input').value;
+        //     const ul = document.getElementById('notesList');
+        //     const noteItem = document.createElement('li');
+        //     noteItem.setAttribute('class','listItem');
+        //     noteItem.style.border = '1px solid black';
+        //     noteItem.style.padding = '10px';
+        //     noteItem.style.marginTop = '5px';
+        //     noteItem.style.width = '200px';
+        //     noteItem.style.backgroundColor = 'yellow';
+        //     noteItem.textContent = noteText;
+        //    makeDraggable(noteItem);
+        //     ul.appendChild(noteItem)
+        //     document.querySelector('input').value = '';    
+
+            
+        // }
+
+//         const element = document.getElementById('no');
+//         // makeDraggable(noButton);
+        
+        
+        
+//             let isDragging = false;
+//         let offsetX, offsetY;
+//         let isHovering = false;
+//         let isElementxcenter;
+//         let isElementycenter;
+
+
+//         element.addEventListener('mouseenter',()=>
+//     {
+//         isHovering = true;
+//     })
+
+//     element.addEventListener('mouseleave',()=>
+// {
+//     isHovering = false;
+// })
+
+// document.addEventListener('mousemove',(e)=>
+// {
+//     if(!isHovering) return;
+
+//     const rect = element.getBoundingClientRect();
+
+//     isElementxcenter = rect.left + rect.width / 2;
+//     isElementycenter = rect.top + rect.height / 2;
+
+//     let dx = e.clientX - isElementxcenter;
+//     let dy = e.clientY - isElementycenter;
+//     const speed = 150;
+//     let moveX = Math.sign(dx) * speed;
+//     let moveY = Math.sign(dy) * speed;
+    
+
+//     let newLeft = element.offsetLeft - moveX ;
+//     let newTop = element.offsetTop - moveY ;
+
+//     const maxLeft = window.innerWidth - element.offsetWidth;
+//     const maxTop = window.innerHeight - element.offsetHeight;
+
+//     if (newLeft <= 0 || newLeft >= maxLeft) {
+//     newLeft = element.offsetLeft + moveX;
+//     }
+
+// // 🔁 bounce vertically
+// if (newTop <= 0 || newTop >= maxTop) {
+//     newTop = element.offsetTop + moveY;
+// }
+
+//     element.style.left = newLeft + "px";
+//     element.style.top = newTop + "px";
+
+
+
+
+// })
+
+
+// element.addEventListener('mouseover',(e)=>
+// {
+    
+//     element.style.left = e.clientX - element.offsetLeft + "px";
+//     if(element.style.left < 0) element.style.left = "200px";
+//     element.style.top = e.clientY - element.offsetTop + "px";
+//     if(element.style.top < 0) element.style.top = "200px";
+    
+// })
+
+// element.addEventListener('mousedown',(e)=>
+//     {
+        
+//         console.log('e.clientX:', e.clientX, 'e.clientY:', e.clientY);
+//         console.log('element.offsetLeft:', element.offsetLeft, 'element.offsetTop:', element.offsetTop);
+//         isDragging = true;
+//         offsetX = e.clientX - element.offsetLeft;
+//         offsetY = e.clientY - element.offsetTop;
+//     })
+
+// document.addEventListener('mousemove',(e)=>
+// {
+//     if(!isDragging) return;
+//     console.log('Dragging to:', e.clientX, e.clientY);
+//     console.log('With offsets:', offsetX, offsetY);
+//     element.style.left = e.clientX - offsetX + "px";
+//     element.style.top = e.clientY - offsetY + "px";
+//     console.log('Element new position:', element.style.left, element.style.top);
+// })
+
+// document.addEventListener('mouseup',()=>
+// {
+//     isDragging = false;
+// })
+        
+    </script>
+</body>
+</html>
